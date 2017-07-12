@@ -58,6 +58,8 @@ Vagrant.configure("2") do |config|
 			git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
 			sed -i 's/plugins=(git)/plugins=(zsh-syntax-highlighting git docker docker-compose)/g' ~/.zshrc
+
+			echo '\ncd #{conf["default_path"]}' >> ~/.zshrc
 		SHELL
 	end
 

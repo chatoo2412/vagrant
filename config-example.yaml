@@ -11,3 +11,5 @@ providers:
     name: projects
     cpus: 4
     memory: 4096
+
+default_path: /projects
