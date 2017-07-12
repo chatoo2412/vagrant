@@ -3,15 +3,20 @@ require "yaml"
 conf = YAML.load_file(File.join(__dir__, "config.yaml"))
 
 Vagrant.configure("2") do |config|
-	config.vm.box = "ubuntu/trusty64"
-	config.vm.hostname = "projects"
+	conf["vm"].each do |key, value|
+		config.vm.send("#{key}=", value)
+	end
 
-	config.vm.synced_folder "../../" "/projects"
+	conf["synced_folders"].each do |item|
+		config.vm.synced_folder item["src"], item["dest"]
+	end
 
-	config.vm.provider provider do |v|
-		v.name = "projects"
-		v.cpus = 4
-		v.memory = 4096
+	conf["providers"].each do |provider, provider_conf|
+		config.vm.provider provider do |v|
+			provider_conf.each do |key, value|
+				v.send("#{key}=", value)
+			end
+		end
 	end
 
 	config.vm.provision "Copy the SSH private key", type: :file, source: "~/.ssh/id_rsa", destination: ".ssh/id_rsa"
