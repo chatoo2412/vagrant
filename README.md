@@ -12,6 +12,7 @@ Configure `Vagrantfile` by using a yaml file.
 
 ```bash
 $ cp config-example.yaml config.yaml
+$ cp docker-compose-example.yaml docker-compose.yaml
 $ vagrant plugin install vagrant-docker-compose
 $ vagrant up
 ```

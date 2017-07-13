@@ -1,3 +1,6 @@
-.vagrant
+# Vagrant
+/.vagrant
 
-config.yaml
+# Configs
+/config.yaml
+/docker-compose.yaml

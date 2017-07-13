@@ -63,17 +63,10 @@ Vagrant.configure("2") do |config|
 		SHELL
 	end
 
-	config.vm.provision :docker do |d|
-		d.pull_images "postgres:9-alpine"
-		d.pull_images "redis:3-alpine"
-
-		d.run "postgres:9-alpine",
-			args: "--name postgres -d -p 5432:5432"
-		d.run "redis:3-alpine",
-			args: "--name redis -d -p 6379:6379"
-	end
-
-	config.vm.provision :docker_compose
+	config.vm.provision :docker
+	config.vm.provision :docker_compose,
+		yml: "/vagrant/docker-compose.yaml",
+		run: "always"
 
 	config.vm.network :private_network, type: "dhcp"
 	config.vm.network :public_network
