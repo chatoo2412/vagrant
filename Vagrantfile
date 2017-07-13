@@ -55,6 +55,8 @@ Vagrant.configure("2") do |config|
 		s.inline = <<-SHELL
 			sudo apt-get install zsh -y
 
+			sudo chsh -s $(which zsh) $USER
+
 			sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 			rm -rf ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
