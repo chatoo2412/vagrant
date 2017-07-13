@@ -19,10 +19,12 @@ Vagrant.configure("2") do |config|
 		end
 	end
 
-	config.vm.provision "Copy the SSH private key", type: :file, source: "~/.ssh/id_rsa", destination: ".ssh/id_rsa"
+	config.vm.provision "Copy the SSH private key", type: :file, source: "~/.ssh/id_rsa", destination: "~/id_rsa"
 	config.vm.provision "Configure the SSH private key", type: :shell do |s|
 		s.privileged = false
 		s.inline = <<-SHELL
+			rm -f ~/.ssh/id_rsa
+			mv ~/id_rsa ~/.ssh/
 			chmod 400 ~/.ssh/id_rsa
 		SHELL
 	end
@@ -55,6 +57,7 @@ Vagrant.configure("2") do |config|
 
 			sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
+			rm -rf ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 			git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
 			sed -i 's/plugins=(git)/plugins=(zsh-syntax-highlighting git docker docker-compose)/g' ~/.zshrc
