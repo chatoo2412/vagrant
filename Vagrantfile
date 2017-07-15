@@ -16,7 +16,11 @@ Vagrant.configure("2") do |config|
 	config.vm.network :public_network
 
 	conf["synced_folders"].each do |i|
-		config.vm.synced_folder i["src"], i["dest"]
+		config.vm.synced_folder i["src"], "/vboxsf#{i["dest"]}"
+
+		config.vm.synced_folder i["src"], i["dest"], type: :rsync,
+			rsync__args: ["--verbose", "--archive"],
+			rsync__exclude: i["rsync__exclude"]
 	end
 
 	# Copy the SSH private key

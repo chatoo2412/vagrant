@@ -23,3 +23,6 @@ network:
 synced_folders:
   - src: ../../
     dest: /projects
+    rsync__exclude:
+      - .git/
+      - node_modules/
