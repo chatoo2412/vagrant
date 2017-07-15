@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
 		end
 	end
 
-	config.vm.network :private_network, type: "dhcp"
+	config.vm.network :private_network, ip: conf["network"]["private_network"]["ip"]
 	config.vm.network :public_network
 
 	conf["synced_folders"].each do |i|

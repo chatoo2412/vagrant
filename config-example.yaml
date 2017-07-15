@@ -16,6 +16,10 @@ providers:
         - --pae
         - "on"
 
+network:
+  private_network:
+    ip: 192.168.113.202
+
 # Additional syncs
 synced_folders:
   - src: ../../
