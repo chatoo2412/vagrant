@@ -19,8 +19,11 @@ Vagrant.configure("2") do |config|
 		config.vm.synced_folder i["src"], i["dest"]
 	end
 
-	config.vm.provision "Copy the SSH private key", type: :file, source: "~/.ssh/id_rsa", destination: "~/id_rsa"
-	config.vm.provision "Configure the SSH private key", type: :shell do |s|
+	# Copy the SSH private key
+	config.vm.provision "copy_key", type: :file, source: "~/.ssh/id_rsa", destination: "~/id_rsa"
+
+	# Configure the SSH private key
+	config.vm.provision "set_key", type: :shell do |s|
 		s.privileged = false
 		s.inline = <<-EOF
 			rm -f ~/.ssh/id_rsa
@@ -29,7 +32,8 @@ Vagrant.configure("2") do |config|
 		EOF
 	end
 
-	config.vm.provision "Update APT repositories", type: :shell do |s|
+	# Update APT repositories
+	config.vm.provision "repo", type: :shell do |s|
 		s.inline = <<-EOF
 			add-apt-repository ppa:git-core/ppa -y
 			apt-get update
@@ -37,13 +41,15 @@ Vagrant.configure("2") do |config|
 		EOF
 	end
 
-	config.vm.provision "Install essential packages", type: :shell do |s|
+	# Install essential packages
+	config.vm.provision "essential", type: :shell do |s|
 		s.inline = <<-EOF
-			apt-get install htop -y
+			apt-get install build-essential htop -y
 		EOF
 	end
 
-	config.vm.provision "Install and configure Git", type: :shell do |s|
+	# Install and configure Git
+	config.vm.provision "git", type: :shell do |s|
 		s.privileged = false
 		s.inline = <<-EOF
 			sudo apt-get install git -y
