@@ -20,5 +20,3 @@ providers:
 synced_folders:
   - src: ../../
     dest: /projects
-
-default_path: /projects

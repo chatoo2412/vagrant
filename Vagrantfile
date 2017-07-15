@@ -60,26 +60,14 @@ Vagrant.configure("2") do |config|
 		EOF
 	end
 
-	config.vm.provision "Install and configure ZSH", type: :shell do |s|
-		s.privileged = false
-		s.inline = <<-SHELL
-			sudo apt-get install zsh -y
-
-			sudo chsh -s $(which zsh) $USER
-
-			sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-
-			rm -rf ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-			git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-
-			sed -i 's/plugins=(git)/plugins=(zsh-syntax-highlighting git docker docker-compose)/g' ~/.zshrc
-
-			echo '\ncd #{conf["default_path"]}' >> ~/.zshrc
-		SHELL
-	end
-
 	config.vm.provision :docker
 	config.vm.provision :docker_compose,
 		yml: "/vagrant/docker-compose.yaml",
 		run: "always"
+
+	# Install and configure ZSH
+	config.vm.provision "zsh", run: "never", type: :shell do |s|
+		s.privileged = false
+		s.path = "zsh.sh"
+	end
 end

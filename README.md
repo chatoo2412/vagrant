@@ -13,6 +13,9 @@ Configure `Vagrantfile` by using a yaml file.
 ```bash
 $ cp config-example.yaml config.yaml
 $ cp docker-compose-example.yaml docker-compose.yaml
+$ cp zsh-example.sh zsh.sh
 $ vagrant plugin install vagrant-docker-compose
 $ vagrant up
+$ vagrant provision --provision-with zsh
+$ vagrant ssh
 ```
