@@ -2,14 +2,23 @@ vm:
   box: ubuntu/trusty64
   hostname: projects
 
-synced_folders:
-  - src: ../../
-    dest: /projects
-
 providers:
   virtualbox:
     name: projects
-    cpus: 4
-    memory: 4096
+    customize:
+      -
+        - --cpus
+        - 4
+      -
+        - --memory
+        - 2048
+      -
+        - --pae
+        - "on"
+
+# Additional syncs
+synced_folders:
+  - src: ../../
+    dest: /projects
 
 default_path: /projects
