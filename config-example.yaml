@@ -19,6 +19,8 @@ network:
   private_network:
     ip: 192.168.113.202
 
+timezone: Asia/Seoul
+
 # Additional syncs
 synced_folders:
   - src: ../../

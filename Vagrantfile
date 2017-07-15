@@ -23,6 +23,8 @@ Vagrant.configure("2") do |config|
 			rsync__exclude: i["rsync__exclude"]
 	end
 
+	config.timezone.value = conf["timezone"]
+
 	# Copy the SSH private key
 	config.vm.provision "copy_key", type: :file, source: "~/.ssh/id_rsa", destination: "~/id_rsa"
 
