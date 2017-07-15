@@ -6,15 +6,14 @@ providers:
   virtualbox:
     name: projects
     customize:
-      -
-        - --cpus
-        - 4
-      -
-        - --memory
-        - 2048
-      -
-        - --pae
-        - "on"
+      - --cpus
+      - 4
+      - --memory
+      - 2048
+      - --pae
+      - "on"
+      - --paravirtprovider
+      - kvm
 
 network:
   private_network:

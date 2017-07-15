@@ -9,9 +9,7 @@ Vagrant.configure("2") do |config|
 
 	config.vm.provider "virtualbox" do |v|
 		v.name = conf["providers"]["virtualbox"]["name"]
-		conf["providers"]["virtualbox"]["customize"].each do |i|
-			v.customize ["modifyvm", :id, i[0], i[1]]
-		end
+		v.customize ["modifyvm", :id].concat(conf["providers"]["virtualbox"]["customize"])
 	end
 
 	config.vm.network :private_network, ip: conf["network"]["private_network"]["ip"]
