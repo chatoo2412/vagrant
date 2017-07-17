@@ -15,13 +15,10 @@ Vagrant.configure("2") do |config|
 	config.vm.network :private_network, ip: conf["network"]["private_network"]["ip"]
 	config.vm.network :public_network
 
-	conf["synced_folders"].each do |i|
-		config.vm.synced_folder i["src"], "/vboxsf#{i["dest"]}"
-
-		config.vm.synced_folder i["src"], i["dest"], type: :rsync,
-			rsync__args: ["--verbose", "--archive"],
-			rsync__exclude: i["rsync__exclude"]
-	end
+	config.vm.synced_folder conf["path"]["src"], "/vboxsf#{conf["path"]["dest"]}"
+	config.vm.synced_folder conf["path"]["src"], conf["path"]["dest"], type: :rsync,
+		rsync__args: ["--verbose", "--archive"],
+		rsync__exclude: conf["path"]["rsync__exclude"]
 
 	config.timezone.value = conf["timezone"]
 
@@ -64,6 +61,7 @@ Vagrant.configure("2") do |config|
 	# Install and configure ZSH
 	config.vm.provision "zsh", type: :shell, run: "never" do |s|
 		s.privileged = false
-		s.path = "zsh.sh"
+		s.args = [conf["path"]["dest"]]
+		s.path = "scripts/zsh.sh"
 	end
 end

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# TODO: Obsolete hardcoded path.
+if [[ $PWD != $RSYNCED* ]]; then
+	echo "WARN: rsyarn only works under rsynced directory: $RSYNCED"
+	exit 1
+fi
+
+prev=$(md5sum yarn.lock)
+
+yarn "$@"
+
+current=$(md5sum yarn.lock)
+
+if [ "$current" != "$prev" ]; then
+	echo "INFO: yarn.lock file has changed."
+	cp yarn.lock /vboxsf$PWD/
+	echo "INFO: Successfully copied to: /vboxsf$PWD/"
+else
+	echo "INFO: yarn.lock file has not changed."
+fi

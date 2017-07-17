@@ -28,4 +28,7 @@ cat <<-EOF > ~/.zshrc
 	antigen theme robbyrussell
 
 	antigen apply
+
+	export PATH="/vagrant/scripts:\$PATH"
+	export RSYNCED="$1"
 EOF
