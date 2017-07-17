@@ -25,19 +25,6 @@ Vagrant.configure("2") do |config|
 
 	config.timezone.value = conf["timezone"]
 
-	# Copy the SSH private key
-	config.vm.provision "copy_key", type: :file, source: "~/.ssh/id_rsa", destination: "~/id_rsa"
-
-	# Configure the SSH private key
-	config.vm.provision "set_key", type: :shell do |s|
-		s.privileged = false
-		s.inline = <<-EOF
-			rm -f ~/.ssh/id_rsa
-			mv ~/id_rsa ~/.ssh/
-			chmod 400 ~/.ssh/id_rsa
-		EOF
-	end
-
 	# Update APT repositories
 	config.vm.provision "repo", type: :shell do |s|
 		s.inline = <<-EOF
