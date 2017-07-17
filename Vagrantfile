@@ -58,12 +58,11 @@ Vagrant.configure("2") do |config|
 	end
 
 	config.vm.provision :docker
-	config.vm.provision :docker_compose,
-		yml: "/vagrant/docker-compose.yaml",
-		run: "always"
+	config.vm.provision :docker_compose, run: "always",
+		yml: "/vagrant/docker-compose.yaml"
 
 	# Install and configure ZSH
-	config.vm.provision "zsh", run: "never", type: :shell do |s|
+	config.vm.provision "zsh", type: :shell, run: "never" do |s|
 		s.privileged = false
 		s.path = "zsh.sh"
 	end
