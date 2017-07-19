@@ -47,10 +47,10 @@ Vagrant.configure("2") do |config|
 			git config --global diff.compactionHeuristic true
 
 			sudo chmod +x /usr/share/doc/git/contrib/diff-highlight/diff-highlight
-			git config --global pager.log '/usr/share/doc/git/contrib/diff-highlight/diff-highlight | less'
-			git config --global pager.show '/usr/share/doc/git/contrib/diff-highlight/diff-highlight | less'
-			git config --global pager.diff '/usr/share/doc/git/contrib/diff-highlight/diff-highlight | less'
-			git config --global interactive.diffFilter /usr/share/doc/git/contrib/diff-highlight/diff-highlight
+			git config --global pager.log "/usr/share/doc/git/contrib/diff-highlight/diff-highlight | less"
+			git config --global pager.show "/usr/share/doc/git/contrib/diff-highlight/diff-highlight | less'
+			git config --global pager.diff "/usr/share/doc/git/contrib/diff-highlight/diff-highlight | less"
+			git config --global interactive.diffFilter "/usr/share/doc/git/contrib/diff-highlight/diff-highlight"
 		EOF
 	end
 
