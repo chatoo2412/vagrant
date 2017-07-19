@@ -29,6 +29,7 @@ cat <<-EOF > ~/.zshrc
 
 	antigen apply
 
+	# Environments
 	export PATH="/vagrant/scripts:\$PATH"
 	export RSYNCED="$1"
 EOF

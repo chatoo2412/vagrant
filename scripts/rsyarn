@@ -6,16 +6,25 @@ if [[ $PWD != $RSYNCED* ]]; then
 	exit 1
 fi
 
-prev=$(md5sum yarn.lock)
+pkg_prev=$(md5sum package.json)
+lock_prev=$(md5sum yarn.lock)
 
 yarn "$@"
 
-current=$(md5sum yarn.lock)
+pkg_current=$(md5sum package.json)
+lock_current=$(md5sum yarn.lock)
 
-if [ "$current" != "$prev" ]; then
-	echo "INFO: yarn.lock file has changed."
-	cp yarn.lock /vboxsf$PWD/
-	echo "INFO: Successfully copied to: /vboxsf$PWD/"
+if [ "$pkg_current" != "$pkg_prev" ] || [ "$lock_current" != "$lock_prev" ]; then
+	echo "INFO: File(s) have changed."
+
+	cp package.json yarn.lock /vboxsf$PWD/
+
+	if [ $? -eq 0 ]; then
+		echo "INFO: Successfully copied to: /vboxsf$PWD/"
+	else
+		echo "FAIL: Failed to copy files."
+		exit 1
+	fi
 else
-	echo "INFO: yarn.lock file has not changed."
+	echo "INFO: Files have not changed."
 fi
