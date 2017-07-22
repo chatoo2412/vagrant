@@ -4,4 +4,5 @@
 # Configs
 /config.yaml
 /docker-compose.yaml
+/scripts/essential.sh
 /scripts/zsh.sh

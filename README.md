@@ -14,10 +14,10 @@ This project also suggest a workaround for the [disk performance issue with Virt
 ```bash
 $ cp config-example.yaml config.yaml
 $ cp docker-compose-example.yaml docker-compose.yaml
+$ cp scripts/essential-example.sh scripts/essential.sh
 $ cp scripts/zsh-example.sh scripts/zsh.sh
 $ vagrant plugin install vagrant-timezone vagrant-docker-compose
 $ vagrant up
-$ vagrant provision --provision-with zsh
 $ vagrant rsync-auto
 ```
 

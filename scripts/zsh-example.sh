@@ -19,17 +19,11 @@ cat <<-EOF > ~/.zshrc
 	antigen bundle git
 	antigen bundle zsh-users/zsh-syntax-highlighting
 	antigen bundle command-not-found
-	antigen bundle lukechilds/zsh-nvm
-	antigen bundle npm
-	antigen bundle yarn
+	antigen bundle djui/alias-tips
 	antigen bundle docker
 	antigen bundle docker-compose
 
 	antigen theme robbyrussell
 
 	antigen apply
-
-	# Environments
-	export PATH="/vagrant/scripts:\$PATH"
-	export RSYNCED="$1"
 EOF

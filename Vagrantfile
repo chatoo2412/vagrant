@@ -22,46 +22,31 @@ Vagrant.configure("2") do |config|
 
 	config.timezone.value = conf["timezone"]
 
-	# Update APT repositories
-	config.vm.provision "repo", type: :shell do |s|
-		s.inline = <<-EOF
-			add-apt-repository ppa:git-core/ppa -y
-			apt-get update
-			apt-get dist-upgrade -y
-		EOF
-	end
-
-	# Install essential packages
-	config.vm.provision "essential", type: :shell do |s|
-		s.inline = <<-EOF
-			apt-get install build-essential htop -y
-		EOF
-	end
-
-	# Install and configure Git
-	config.vm.provision "git", type: :shell do |s|
-		s.privileged = false
-		s.inline = <<-EOF
-			sudo apt-get install git -y
-
-			git config --global diff.compactionHeuristic true
-
-			sudo chmod +x /usr/share/doc/git/contrib/diff-highlight/diff-highlight
-			git config --global pager.log "/usr/share/doc/git/contrib/diff-highlight/diff-highlight | less"
-			git config --global pager.show "/usr/share/doc/git/contrib/diff-highlight/diff-highlight | less'
-			git config --global pager.diff "/usr/share/doc/git/contrib/diff-highlight/diff-highlight | less"
-			git config --global interactive.diffFilter "/usr/share/doc/git/contrib/diff-highlight/diff-highlight"
-		EOF
-	end
-
 	config.vm.provision :docker
 	config.vm.provision :docker_compose, run: "always",
 		yml: "/vagrant/docker-compose.yaml"
 
-	# Install and configure ZSH
-	config.vm.provision "zsh", type: :shell, run: "never" do |s|
+	# Install and configure esstntial packages
+	config.vm.provision "essential", type: :shell do |s|
 		s.privileged = false
-		s.args = [conf["path"]["dest"]]
+		s.path = "scripts/essential.sh"
+		s.args = ["/usr/share/doc/git/contrib/diff-highlight/diff-highlight"]
+	end
+
+	# Install and configure ZSH
+	config.vm.provision "zsh", type: :shell do |s|
+		s.privileged = false
 		s.path = "scripts/zsh.sh"
+	end
+
+	# Configure rsyarn
+	config.vm.provision "rsyarn", type: :shell do |s|
+		s.privileged = false
+		s.inline = <<-EOF
+			echo "" >> ~/.zshrc
+			echo "# Environments" >> ~/.zshrc
+			echo "export PATH=\\"/vagrant/scripts:\\$PATH\\"" >> ~/.zshrc
+			echo "export RSYNCED=\\"#{conf["path"]["dest"]}\\"" >> ~/.zshrc
+		EOF
 	end
 end
