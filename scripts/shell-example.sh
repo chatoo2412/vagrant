@@ -3,7 +3,7 @@
 # Install ZSH
 sudo apt-get install zsh -y
 
-sudo chsh -s $(which zsh) $USER
+sudo chsh -s "$(which zsh)" "$USER"
 
 # Install Antigen
 rm -rf ~/antigen

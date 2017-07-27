@@ -15,7 +15,7 @@ rm -f ~/.gitconfig
 
 git config --global diff.compactionHeuristic true
 
-sudo chmod +x $1
+sudo chmod +x "$1"
 git config --global pager.log "$1 | less"
 git config --global pager.show "$1 | less"
 git config --global pager.diff "$1 | less"
