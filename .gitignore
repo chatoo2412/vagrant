@@ -5,4 +5,4 @@
 /config.yaml
 /docker-compose.yaml
 /scripts/essential.sh
-/scripts/zsh.sh
+/scripts/shell.sh

@@ -13,7 +13,7 @@ Configure `Vagrantfile` by using your own yaml/sh files.
 $ cp config-example.yaml config.yaml
 $ cp docker-compose-example.yaml docker-compose.yaml
 $ cp scripts/essential-example.sh scripts/essential.sh
-$ cp scripts/zsh-example.sh scripts/zsh.sh
+$ cp scripts/shell-example.sh scripts/shell.sh
 $ vagrant plugin install vagrant-timezone vagrant-docker-compose
 $ vagrant up
 ```

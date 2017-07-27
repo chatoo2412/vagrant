@@ -32,9 +32,9 @@ Vagrant.configure("2") do |config|
 		s.args = ["/usr/share/doc/git/contrib/diff-highlight/diff-highlight"]
 	end
 
-	# Install and configure ZSH
-	config.vm.provision "zsh", type: :shell do |s|
+	# Install and configure shell
+	config.vm.provision "shell", type: :shell do |s|
 		s.privileged = false
-		s.path = "scripts/zsh.sh"
+		s.path = "scripts/shell.sh"
 	end
 end
