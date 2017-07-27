@@ -15,10 +15,9 @@ Vagrant.configure("2") do |config|
 	config.vm.network :private_network, ip: conf["network"]["private_network"]["ip"]
 	config.vm.network :public_network
 
-	config.vm.synced_folder conf["path"]["src"], "/vboxsf#{conf["path"]["dest"]}"
-	config.vm.synced_folder conf["path"]["src"], conf["path"]["dest"], type: :rsync,
-		rsync__args: ["--verbose", "--archive"],
-		rsync__exclude: conf["path"]["rsync__exclude"]
+	conf["synced_folders"].each do |i|
+		config.vm.synced_folder i["src"], i["dest"]
+	end
 
 	config.timezone.value = conf["timezone"]
 
@@ -26,7 +25,7 @@ Vagrant.configure("2") do |config|
 	config.vm.provision :docker_compose, run: "always",
 		yml: "/vagrant/docker-compose.yaml"
 
-	# Install and configure esstntial packages
+	# Install and configure essential packages
 	config.vm.provision "essential", type: :shell do |s|
 		s.privileged = false
 		s.path = "scripts/essential.sh"
@@ -37,16 +36,5 @@ Vagrant.configure("2") do |config|
 	config.vm.provision "zsh", type: :shell do |s|
 		s.privileged = false
 		s.path = "scripts/zsh.sh"
-	end
-
-	# Configure rsyarn
-	config.vm.provision "rsyarn", type: :shell do |s|
-		s.privileged = false
-		s.inline = <<-EOF
-			echo "" >> ~/.zshrc
-			echo "# Environments" >> ~/.zshrc
-			echo "export PATH=\\"/vagrant/scripts:\\$PATH\\"" >> ~/.zshrc
-			echo "export RSYNCED=\\"#{conf["path"]["dest"]}\\"" >> ~/.zshrc
-		EOF
 	end
 end

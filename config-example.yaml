@@ -19,11 +19,8 @@ network:
   private_network:
     ip: 192.168.113.202
 
-timezone: Asia/Seoul
+synced_folders:
+  - src: ../../
+    dest: /projects
 
-path:
-  src: ../../
-  dest: /projects
-  rsync__exclude:
-    - .git/
-    - node_modules/
+timezone: Asia/Seoul
