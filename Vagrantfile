@@ -29,7 +29,7 @@ Vagrant.configure("2") do |config|
 	config.vm.provision "essential", type: :shell do |s|
 		s.privileged = false
 		s.path = "scripts/essential.sh"
-		s.args = ["/usr/share/doc/git/contrib/diff-highlight/diff-highlight"]
+		s.args = [conf["git"]["diff_highlight"]]
 	end
 
 	# Install and configure shell

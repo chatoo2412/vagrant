@@ -24,3 +24,6 @@ synced_folders:
     dest: /projects
 
 timezone: Asia/Seoul
+
+git:
+  diff_highlight: /usr/share/doc/git/contrib/diff-highlight/diff-highlight
